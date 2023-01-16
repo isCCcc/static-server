@@ -23,7 +23,19 @@ var server = http.createServer(function (request, response) {
     console.log('后台收到一个请求，路径（带查询参数）为：' + pathWithQuery)
 
 
-    response.statusCode = 200
+    if(path === '/'){
+        response.statusCode = 200
+        response.write(`欢迎请求 blanche 的远程服务器`)
+        response.end()
+      } else if(path === '/x'){
+        response.statusCode = 200
+        response.write(`body{color: red;}`)
+        response.end()
+      } else {
+        response.statusCode = 404
+        response.write(`你输入的路径不存在对应的内容`)
+        response.end()
+      }
 
     // 获取请求文件路径
     const filePath = path === '/' ? '/index.html' : path;
