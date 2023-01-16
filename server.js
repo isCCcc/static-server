@@ -23,42 +23,45 @@ var server = http.createServer(function (request, response) {
     console.log('后台收到一个请求，路径（带查询参数）为：' + pathWithQuery)
 
 
-    if(path === '/'){
+   if(path === '/'){
         response.statusCode = 200
-        response.write(`欢迎请求 blanche 的远程服务器`)
+        response.setHeader('Content-Type', 'text/html;charset=utf-8')
+        response.write(`二哈`)
         response.end()
       } else if(path === '/x'){
         response.statusCode = 200
+        response.setHeader('Content-Type', 'text/css;charset=utf-8')
         response.write(`body{color: red;}`)
         response.end()
       } else {
         response.statusCode = 404
+        response.setHeader('Content-Type', 'text/html;charset=utf-8')
         response.write(`你输入的路径不存在对应的内容`)
         response.end()
       }
 
-    // 获取请求文件路径
-    const filePath = path === '/' ? '/index.html' : path;
-    // 设置请求体
-    const index = filePath.lastIndexOf('.');
-    const suffix = filePath.substring(index);
-    const fileTypes = {
-        '.html': 'text/html',
-        '.css': 'text/css',
-        '.js': 'text/javascript',
-        '.png': 'image/png',
-        '.jpg': 'image/jpeg'
-    }
-    response.setHeader('Content-Type', `${fileTypes[suffix] || 'text/html'};charset=utf-8`)
-    let content;
-    try {
-        content = fs.readFileSync(`./public${filePath}`);
-    } catch (error) {
-        content = '当前请求文件内容不存在，请查看请求路径是否正确';
-        response.statusCode = 404;
-    }
-    response.write(content)
-    response.end()
+//     // 获取请求文件路径
+//     const filePath = path === '/' ? '/index.html' : path;
+//     // 设置请求体
+//     const index = filePath.lastIndexOf('.');
+//     const suffix = filePath.substring(index);
+//     const fileTypes = {
+//         '.html': 'text/html',
+//         '.css': 'text/css',
+//         '.js': 'text/javascript',
+//         '.png': 'image/png',
+//         '.jpg': 'image/jpeg'
+//     }
+//     response.setHeader('Content-Type', `${fileTypes[suffix] || 'text/html'};charset=utf-8`)
+//     let content;
+//     try {
+//         content = fs.readFileSync(`./public${filePath}`);
+//     } catch (error) {
+//         content = '当前请求文件内容不存在，请查看请求路径是否正确';
+//         response.statusCode = 404;
+//     }
+//     response.write(content)
+//     response.end()
 
 
 })
